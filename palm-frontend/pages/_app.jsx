@@ -15,15 +15,17 @@ export default function App({ Component, pageProps }) {
   const [loading, changeLoading] = useState(false);
 
   useEffect(() => {
-    if (!authorized && !router.pathname.includes('auth')) {
+    if (!authorized && !router.pathname.includes('auth') && !router.pathname.includes('api')) {
+      // console.log('api', router);
       router.push('/auth/login');
     }
   }, [authorized]);
 
   useEffect(() => {
+    console.log('api', router);
     const token = Cookies.get('token');
     if (!token) setAuthorized(false); else setAuthorized(true);
-    if (!token && !router.pathname.includes('auth')) {
+    if (!token && !router.pathname.includes('auth') && !router.pathname.includes('api')) {
       router.push('/auth/login');
     }
 
